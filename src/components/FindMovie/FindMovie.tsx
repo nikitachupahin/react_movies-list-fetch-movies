@@ -34,14 +34,17 @@ export const FindMovie: React.FC<Props> = ({ movies, onAdd }) => {
           setPreview(null);
         } else {
           const movie = data as MovieData;
+          const DEFAULT_IMAGE =
+            'https://via.placeholder.com/360x270.png?text=no%20preview';
+          const poster =
+            movie.Poster && movie.Poster !== 'N/A'
+              ? movie.Poster
+              : DEFAULT_IMAGE;
 
           const normalizedData: Movie = {
-            title: movie.Title,
-            description: movie.Plot,
-            imgUrl:
-              movie.Poster !== 'N/A'
-                ? movie.Poster
-                : 'https://via.placeholder.com/360x270.png?text=no%20preview',
+            title: movie.Title || '',
+            description: movie.Plot && movie.Plot !== 'N/A' ? movie.Plot : '',
+            imgUrl: poster,
             imdbUrl: `https://www.imdb.com/title/${movie.imdbID}`,
             imdbId: movie.imdbID,
           };
